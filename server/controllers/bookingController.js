@@ -76,7 +76,7 @@ export const createBooking = async (req, res) => {
         currency: 'ETB',
         email,
         tx_ref,
-        callback_url: process.env.CHAPA_CALLBACK_URL,
+         callback_url: 'https://hibret-movie-ticket-booking.vercel.app/api/payment/callback', // BACKEND: Chapa notifies your server here
          return_url: `${origin}/my-bookings`,
         customizations: {
           title: showData.movie.title,
