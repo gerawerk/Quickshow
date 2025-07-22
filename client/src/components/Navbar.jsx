@@ -3,8 +3,11 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import { SearchIcon, MenuIcon, XIcon, TicketPlus } from 'lucide-react';
 import { useClerk, UserButton, useUser } from '@clerk/clerk-react';
+import { useAppContext } from '../context/AppContext';
 
 const Navbar = () => {
+    const {favoriteMovies}=useAppContext();
+  console.log(favoriteMovies)
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useUser(); // ✅ fix here
   const { openSignIn } = useClerk(); // ✅ fix here
@@ -33,7 +36,7 @@ const Navbar = () => {
             <Link onClick={() => { window.scrollTo(0, 0); setIsOpen(true); }} to="/movies">Movies</Link>
             <Link onClick={() => { window.scrollTo(0, 0); setIsOpen(true); }} to="/theaters">Theaters</Link>
             <Link onClick={() => { window.scrollTo(0, 0); setIsOpen(true); }} to="/releases">Releases</Link>
-            <Link onClick={() => { window.scrollTo(0, 0); setIsOpen(true); }} to="/favorite">Favorites</Link>
+            {favoriteMovies?.length > 0 && <Link onClick={() => { window.scrollTo(0, 0); setIsOpen(true); }} to="/favorite">Favorites</Link>}
           </>
         )}
       </div>
