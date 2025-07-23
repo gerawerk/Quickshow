@@ -49,7 +49,7 @@ export const reminderScheduler = (bookingId, userId) => {
     } catch (err) {
       console.error('Error sending reminder email:', err);
     }
-  }, 1 * 60 * 1000); // 1 min delay
+  }, 15 * 60 * 1000); // 1 min delay
 
   setTimeout(async () => {
   try {
@@ -82,7 +82,7 @@ export const reminderScheduler = (bookingId, userId) => {
   } catch (err) {
     console.error('❌ Error deleting unpaid booking:', err);
   }
-}, 2 * 60 * 1000); // 2 minutes
+}, 25 * 60 * 1000); // 2 minutes
 
 
 
