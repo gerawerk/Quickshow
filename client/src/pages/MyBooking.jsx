@@ -4,11 +4,33 @@ import timeFormat from '../lib/timeFormat';
 import dateFormat from '../lib/dateFormat';
 import Loading from '../components/Loading';
 import { useAppContext } from '../context/AppContext';
+import toast from 'react-hot-toast';
 const MyBooking = () => {
 const currency = import.meta.env.VITE_CURRENCY;
 const { axios, getToken, user,image_base_url } = useAppContext();
   const [bookings, setBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const handlePayNow = async (bookingId) => {
+  try {
+    const { data } = await axios.post(`/api/booking/pay/${bookingId}`, {}, {
+      headers: {
+        Authorization: `Bearer ${await getToken()}`,
+      },
+    });
+
+    if (data?.payment_url) {
+      // Redirect to Chapa payment page
+     toast.success('Redirecting to payment...');   
+        window.location.href = data.payment_url;
+    } else {
+      console.error('Payment URL not returned');
+    }
+  } catch (error) {
+    console.error('Error initiating payment:', error);
+  }
+};
+
 
   const getMyBookings = async () => {
   try {
@@ -27,7 +49,7 @@ const { axios, getToken, user,image_base_url } = useAppContext();
   useEffect(() => {
     if(user)
 {    getMyBookings();
-}  }, []);
+}  }, [user]);
 
   return isLoading ? (
     <Loading /> // Render Loading component when isLoading is true
@@ -53,7 +75,7 @@ const { axios, getToken, user,image_base_url } = useAppContext();
   <div className="flex flex-col md:items-end md:text-right justify-between p-4">
       <div className="flex items-center gap-4">
         <p className="text-2xl font-semibold mb-3">{currency}{item.amount}</p>
-        {!item.isPaid && <button className="bg-primary px-4 py-1.5 mb-3 text-sm rounded-full
+        {!item.isPaid && <button onClick={() => handlePayNow(item._id)} className="bg-primary px-4 py-1.5 mb-3 text-sm rounded-full
          font-medium cursor-pointer">Pay Now</button>}
       </div>
      <div className="text-sm">

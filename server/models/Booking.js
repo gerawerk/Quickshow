@@ -6,7 +6,9 @@ const bookingSchema = new mongoose.Schema({
   amount: { type: Number, required: true },
   bookedSeats: { type: Array, required: true },
   isPaid: { type: Boolean, default: false },
-  tx_ref: { type: String ,default: null}
+  tx_ref: { type: String ,default: null},
+  reminderSent: { type: Boolean, default: false }
+
 }, { timestamps: true });
 
 const Booking = mongoose.model("Booking", bookingSchema);

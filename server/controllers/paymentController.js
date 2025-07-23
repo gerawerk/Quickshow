@@ -8,7 +8,7 @@ export const chapaCallback = async (req, res) => {
 
     console.log('Chapa callback received:', data);
 
-    const tx_ref = data.tx_ref;
+    const tx_ref = data.trx_ref;
     const status = data.status;
 
     if (!tx_ref) {

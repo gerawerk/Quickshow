@@ -4,6 +4,6 @@ import { chapaCallback } from '../controllers/paymentController.js';
 
 const paymentRouter = express.Router();
 
-paymentRouter.post('/callback', chapaCallback);
+paymentRouter.get('/callback', chapaCallback);
 
 export default paymentRouter;
