@@ -65,7 +65,16 @@ export const sendBookingEmail = inngest.createFunction(
   { event: 'booking/created' },
   async ({ event }) => {
     const { userEmail, userName, movieName, bookingId, seats } = event.data;
-
+// Create transporter (use your real credentials or environment variables)
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+  port: 465,
+  secure: false,
+});
     await transporter.sendMail({
       from: `"Movie Booking" <${process.env.EMAIL_USER}>`,
       to: userEmail,
@@ -97,7 +106,11 @@ export const sendBookingEmail = inngest.createFunction(
           <strong>The Movie Booking Team</strong></p>
         </div>
       `,
-    });
+    }
+  
+  );
+  console.log("Email sent:", info.messageId);
+
   }
 );
 
