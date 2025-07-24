@@ -144,7 +144,7 @@ export const createBooking = async (req, res) => {
         currency: 'ETB',
         email,
         tx_ref,
-         callback_url: "https://hibret-movie-ticket-booking.vercel.app//api/payment/callback",
+         callback_url: "https://hibret-movie-ticket-booking.vercel.app/api/payment/callback",
          return_url: `${origin}/my-bookings`,
         customizations: {
           title: showData.movie.title,
