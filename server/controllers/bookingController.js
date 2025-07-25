@@ -61,7 +61,7 @@ export const reInitiatePayment = async (req, res) => {
         currency: 'ETB',
         email,
         tx_ref: newTxRef,
-        callback_url: "https://e418e938535c.ngrok-free.app/api/payment/callback",
+        callback_url: "https://hibret-movie-ticket-booking.vercel.app/api/payment/callback",
         return_url: `${origin}/my-bookings`,
         customizations: {
           title: booking.show.movie.title,
